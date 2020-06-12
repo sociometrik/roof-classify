@@ -1,3 +1,7 @@
+*.xml
+deploy/chip/*
+deploy/train_frames/*
+deploy/val_frames/*
 store/
 logs/
 blocks/
