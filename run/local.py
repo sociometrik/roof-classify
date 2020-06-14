@@ -26,7 +26,7 @@ def get_settings(path):
     return settings
     
     
-def test_chip(chip_args):
+def run_chip(chip_args):
     '''
     ====================================================
     Input: Chip module arguments dictionary
@@ -37,7 +37,7 @@ def test_chip(chip_args):
     chip.main(**chip_args)
     
     
-def test_mosaic(mosaic_args): 
+def run_mosaic(mosaic_args): 
      '''
      ====================================================
      Input: Mosaic module arguments dictionary
@@ -47,7 +47,7 @@ def test_mosaic(mosaic_args):
      mosaic.main(**mosaic_args)
      
      
-def test_mask(mask_args):
+def run_mask(mask_args):
     '''
     ====================================================
     Input: 
@@ -57,7 +57,7 @@ def test_mask(mask_args):
     mask.main(**mask_args)
     
     
-def test_flatten(flatten_args):
+def run_flatten(flatten_args):
     '''
     ====================================================
     Input: 
@@ -67,7 +67,7 @@ def test_flatten(flatten_args):
     flatten.main(**flatten_args)
     
     
-def test_split(split_args):
+def run_split(split_args):
     '''
     ====================================================
     Input: 
@@ -77,7 +77,7 @@ def test_split(split_args):
     split.main(**split_args)
     
     
-def test_summarize(summarize_args):
+def run_summarize(summarize_args):
     '''
     ====================================================
     Input: 
@@ -87,7 +87,7 @@ def test_summarize(summarize_args):
     summarize.main(**summarize_args)
     
     
-def test_predict(predict_args):
+def run_predict(predict_args):
     '''
     ====================================================
     Input: Prediction 
@@ -96,33 +96,10 @@ def test_predict(predict_args):
     '''
     predict.main(**predict_args)
     
-    
-def run(chip_args, mosaic_args, 
-        mask_args, flatten_args, 
-        split_args, sum_args, predict_args): 
-    '''
-    ====================================================
-    Input: Arguments from setting file
-    Output: Test results
-    ====================================================
-    '''
-    if "chip" in actions:
-        test_chip(chip_args)
-    if "mask" in actions:
-        test_mask(mask_args)
-    if "mosaic" in actions:
-        test_mosaic(mosaic_args)
-    if "flatten" in actions:
-        test_flatten(flatten_args)
-    if "split" in actions:
-        test_split(split_args)
-    if "summarize" in actions:
-        test_summarize(sum_args)
-    if "predict" in actions:
-        test_predict(predict_args)
-    
-    
-def main(mode="test", actions=[""]):
+
+def main(prod, chip=False, mask=False, 
+         mosaic=False, flatten=False, 
+         split=False, summarize=False, predict=False):
     '''
     ====================================================
     Input: 
@@ -130,14 +107,42 @@ def main(mode="test", actions=[""]):
     ====================================================
     '''
     if mode == "test":
-        path = os.path.join("deploy", "test.json")
+        path = os.path.join("run", "test.json")
         args = get_settings(path)
-        run(**args, actions)
+        
+        if chip:
+            run_chip(chip_args)
+        if mask:
+            test_mask(mask_args)
+        if mosaic:
+            test_mosaic(mosaic_args)
+        if flatten:
+            test_flatten(flatten_args)
+        if split:
+            test_split(split_args)
+        if summarize:
+            test_summarize(sum_args)
+        if predict:
+            test_predict(predict_args)
         
     elif test == "prod":
-        path = os.path.join("deploy", "prod.json")
+        path = os.path.join("run", "prod.json")
         args = get_settings(path)
-        run(**args, actions)
+        
+        if chip:
+            run_chip(chip_args)
+        if mask:
+            test_mask(mask_args)
+        if mosaic:
+            test_mosaic(mosaic_args)
+        if flatten:
+            test_flatten(flatten_args)
+        if split:
+            test_split(split_args)
+        if summarize:
+            test_summarize(sum_args)
+        if predict:
+            test_predict(predict_args)
         
         
 if __name__ == '__main__':
